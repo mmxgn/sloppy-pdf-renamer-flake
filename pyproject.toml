@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "sloppy-pdf-renamer"
+version = "0.1.0"
+description = "Rename PDF files based on their titles"
+authors = ["mmxgn"]
+readme = "README.md"
+packages = [{include = "sloppy_pdf_renamer"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pypdf = ">=4.0.0"
+pdfplumber = ">=0.11.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-cov = "^4.1.0"
+
+[tool.poetry.scripts]
+sloppy-pdf-renamer = "sloppy_pdf_renamer.cli:main"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
