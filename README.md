@@ -2,6 +2,23 @@
 
 Automatically rename PDF files based on their titles. Many PDFs have cryptic filenames (e.g., `document_final_v3.pdf`, `1234567.pdf`) while containing clear titles in their metadata or content. This tool extracts the title and uses it as the filename.
 
+## TL;DR - Quick Start
+
+Run without installing (using Nix):
+
+```bash
+# Preview what would be renamed (safe, doesn't modify files)
+nix run github:mmxgn/sloppy-pdf-renamer-flake -- document.pdf --dry-run
+
+# Actually rename the file (removes --dry-run flag, will rename your file!)
+nix run github:mmxgn/sloppy-pdf-renamer-flake -- document.pdf
+
+# Batch process a directory
+nix run github:mmxgn/sloppy-pdf-renamer-flake -- ~/Downloads --recursive --dry-run
+```
+
+**⚠️ Warning:** Removing the `--dry-run` flag will rename your files. Always test with `--dry-run` first!
+
 ## Features
 
 - **Smart title extraction**: Tries PDF metadata first, falls back to content parsing
