@@ -19,6 +19,26 @@ nix run github:mmxgn/sloppy-pdf-renamer-flake -- ~/Downloads --recursive --dry-r
 
 **⚠️ Warning:** Removing the `--dry-run` flag will rename your files. Always test with `--dry-run` first!
 
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+  - [Using Nix Flakes](#using-nix-flakes)
+  - [Development](#development)
+- [Usage](#usage)
+  - [Basic Usage](#basic-usage)
+  - [Batch Processing](#batch-processing)
+  - [Examples](#examples)
+- [How It Works](#how-it-works)
+- [Command-Line Options](#command-line-options)
+- [Exit Codes](#exit-codes)
+- [Testing](#testing)
+- [Dependencies](#dependencies)
+- [Project Structure](#project-structure)
+- [License](#license)
+- [Contributing](#contributing)
+- [Limitations](#limitations)
+
 ## Features
 
 - **Smart title extraction**: Tries PDF metadata first, falls back to content parsing
