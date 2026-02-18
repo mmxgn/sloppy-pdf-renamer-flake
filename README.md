@@ -19,9 +19,16 @@ nix run github:mmxgn/sloppy-pdf-renamer-flake -- ~/Downloads --recursive --dry-r
 
 **⚠️ Warning:** Removing the `--dry-run` flag will rename your files. Always test with `--dry-run` first!
 
+## Demos
+
+### Rename all PDFs in a directory via right-click
+
+https://github.com/mmxgn/sloppy-pdf-renamer-flake/raw/main/demos/rename-directory.mp4
+
 ## Table of Contents
 
 - [Features](#features)
+- [Demos](#demos)
 - [Installation](#installation)
   - [Using Nix Flakes](#using-nix-flakes)
   - [Development](#development)
@@ -29,6 +36,7 @@ nix run github:mmxgn/sloppy-pdf-renamer-flake -- ~/Downloads --recursive --dry-r
   - [Basic Usage](#basic-usage)
   - [Batch Processing](#batch-processing)
   - [Examples](#examples)
+- [GNOME File Manager Integration](#gnome-file-manager-integration)
 - [How It Works](#how-it-works)
 - [Command-Line Options](#command-line-options)
 - [Exit Codes](#exit-codes)
@@ -46,6 +54,7 @@ nix run github:mmxgn/sloppy-pdf-renamer-flake -- ~/Downloads --recursive --dry-r
 - **Batch processing**: Process entire directories with `--recursive`
 - **Duplicate handling**: Automatically appends `(1)`, `(2)`, etc. for duplicates
 - **Filename sanitization**: Removes invalid characters and normalizes whitespace
+- **GNOME file manager integration**: Right-click a PDF or folder → Open With → Sloppy PDF Renamer
 - **Nix flake**: Easy installation and integration with NixOS/home-manager
 
 ## Installation
@@ -158,6 +167,36 @@ sloppy-pdf-renamer ~/Documents --recursive --verbose
 sloppy-pdf-renamer . -r
 ```
 
+## GNOME File Manager Integration
+
+Once installed, Sloppy PDF Renamer registers itself as a handler for PDF files and folders, so it appears in the "Open With" menu in Nautilus (and other GNOME-compatible file managers).
+
+### Right-click on a PDF file
+
+Select the file → right-click → **Open With → Sloppy PDF Renamer**.
+
+The file is renamed immediately and a dialog shows the result:
+
+```
+Renamed: 1234567.pdf  →  Research Paper on Machine Learning.pdf
+```
+
+### Right-click on a folder
+
+Select a folder → right-click → **Open With → Sloppy PDF Renamer**.
+
+All PDF files directly inside the folder are renamed in one go. A summary dialog is shown when done:
+
+```
+Renamed 5, Skipped 1, Errors 0
+```
+
+To process a folder recursively (including subfolders), use the command line with `--recursive`.
+
+### No file selected
+
+Launching the app without a file (e.g. from a launcher) opens a GTK file-chooser dialog, letting you pick a PDF manually.
+
 ## How It Works
 
 1. **Metadata extraction**: First tries to read the `/Title` field from PDF metadata
@@ -169,10 +208,11 @@ sloppy-pdf-renamer . -r
 ## Command-Line Options
 
 ```
-sloppy-pdf-renamer <path> [options]
+sloppy-pdf-renamer [path] [options]
 
 Arguments:
-  path                  PDF file or directory to process
+  path                  PDF file or directory to process.
+                        Opens a GTK file-chooser dialog when omitted.
 
 Options:
   --dry-run            Preview changes without actually renaming files
