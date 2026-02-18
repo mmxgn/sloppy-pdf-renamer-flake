@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Sloppy PDF Renamer
+Comment=Rename PDF files based on their titles
+Exec=sloppy-pdf-renamer %F
+Icon=application-pdf
+Type=Application
+MimeType=application/pdf
+Terminal=false
+Categories=Utility;
+StartupNotify=false

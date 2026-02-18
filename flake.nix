@@ -29,8 +29,17 @@
             pdfplumber
           ];
 
-          # Skip tests during build for now
-          # Can be enabled once test suite is complete
+          # Ensure zenity is available on PATH so the file-chooser and result
+          # dialogs work when launched from a GNOME file manager.
+          makeWrapperArgs = [
+            "--prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.zenity ]}"
+          ];
+
+          postInstall = ''
+            install -Dm644 ${./sloppy-pdf-renamer.desktop} \
+              $out/share/applications/sloppy-pdf-renamer.desktop
+          '';
+
           doCheck = false;
 
           meta = with pkgs.lib; {
@@ -38,11 +47,17 @@
             homepage = "https://github.com/mmxgn/sloppy-pdf-renamer-flake";
             license = licenses.mit;
             maintainers = [ ];
+            mainProgram = "sloppy-pdf-renamer";
           };
         };
 
         # Alias for convenience
         packages.sloppy-pdf-renamer = self.packages.${system}.default;
+
+        apps.default = {
+          type = "app";
+          program = "${self.packages.${system}.default}/bin/sloppy-pdf-renamer";
+        };
 
         # Development shell with all dependencies
         devShells.default = pkgs.mkShell {
@@ -53,7 +68,7 @@
             pdfplumber
             pytest
             pytest-cov
-          ];
+          ] ++ [ pkgs.zenity ];
 
           shellHook = ''
             echo "Sloppy PDF Renamer development environment"
